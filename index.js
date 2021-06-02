@@ -1,7 +1,9 @@
 const WebSocket = require('ws');
 const crypto = require('crypto');
 const readline = require('readline');
-const terminalCommands = require("./packets/terminalCommands");
+
+const terminalCommands = require("./terminalCommands");
+
 const sendToAll = require("./packets/sendToAll");
 const makeName = require("./packets/makeName");
 const join = require("./packets/onJoin");
@@ -45,11 +47,10 @@ wss.on('connection', (ws, req) => {
     console.log("hello spectator")
   }
 
-  ws.tag = '#' + crypto.createHmac('sha256', 'DiepChat').update(Math.random().toString()).digest('hex').split('').splice(0, 4).join(''); // math random so that i dont have to change very much and it is 0-f
-  ws.id = Math.random().toString(16).substr(2);
+  ws.tag = '#' + Math.random().toString(10).substr(15) // if anyone is able to get a universal unique identifier (uuid) from a websocket connection, please tell me and i will use it for the tag 
   usercount++;
 
-  ws.versionTimeout = setTimeout(() => alert(ws, "Your script is out of date. Please update it"), 2000)
+  ws.versionTimeout = setTimeout(() => alert(ws, "Your script is out of date. Please update it"), 2000) // for the clients that are not version 2.3+
   ws.on('close', () => {
 
     console.log('bye client', typeof ws.name === "string" ? ws.name : "spectator");
@@ -86,7 +87,7 @@ wss.on('connection', (ws, req) => {
       case 'join': return join(ws, msg, makeName);
       case 'users': return sendClients(ws, wss);
       case 'init': return init(msg, ws, alert);
-      default: ws.terminate();
+      default: alert(ws, "Invalid packet. Updating the script may fix it.");
     }
   });
 });
