@@ -1,4 +1,4 @@
-module.exports = (line, wss) => {
+module.exports = (line, alert, wss) => {
   switch (line.split(' ')[0]) {
     case "clients": {
       wss.clients.forEach(client => console.log(client.server, client.name))

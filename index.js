@@ -1,13 +1,13 @@
 const WebSocket = require('ws');
 const crypto = require('crypto');
 const readline = require('readline');
-const terminalCommands = require("./terminalCommands");
-const sendToAll = require("./sendToAll");
-const makeName = require("./makeName");
-const join = require("./onJoin");
-const sendClients = require("./sendClients");
-const init = require("./init");
-const config = require("./config.json");
+const terminalCommands = require("./packets/terminalCommands");
+const sendToAll = require("./packets/sendToAll");
+const makeName = require("./packets/makeName");
+const join = require("./packets/onJoin");
+const sendClients = require("./packets/sendClients");
+const init = require("./packets/init");
+const alert = require("./sendNotification")
 
 const wss = new WebSocket.Server({ port: 3000 });
 
@@ -16,7 +16,7 @@ const rl = readline.createInterface({
 });
 
 rl.on('line', line => {
-  terminalCommands(line, wss);
+  terminalCommands(line, alert, wss);
 });
 
 let usercount = 0;
@@ -83,7 +83,7 @@ wss.on('connection', (ws, req) => {
       case 'message': return sendToAll(ws, msg, wss);
       case 'join': return join(ws, msg, makeName);
       case 'users': return sendClients(ws, wss);
-      case 'init': return init(msg, ws, config.version);
+      case 'init': return init(msg, ws, alert);
       default: ws.terminate();
     }
   });
