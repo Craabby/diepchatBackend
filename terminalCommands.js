@@ -22,6 +22,7 @@ module.exports = (line, alert, wss) => {
       } catch (err) {
         console.log(err)
       }
+      break;
     }
     default: {
       console.log("Unknown command");
