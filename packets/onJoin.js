@@ -1,4 +1,7 @@
-module.exports = (ws, msg, makeName) => {
+const makeName = require("./makeName")
+
+module.exports = (ws, msg) => {
   ws.server = msg.server;
-  ws.name = ws.name ? ws.name : makeName(ws, msg.name);
+  if (!ws.name) return ws.name = makeName(ws, msg.name);
+  ws.name = msg.name;
 }
