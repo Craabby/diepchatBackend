@@ -1,7 +1,7 @@
 module.exports = (line, wss) => {
   switch (line.split(' ')[0]) {
     case "clients": {
-      Array.from(wss.clients).forEach(client => console.log(client.server, client.name))
+      wss.clients.forEach(client => console.log(client.server, client.name))
       break;
     }
     case "alert": {

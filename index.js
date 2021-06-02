@@ -1,14 +1,11 @@
 const WebSocket = require('ws');
 const crypto = require('crypto');
 const readline = require('readline');
-
-console.log(WebSocket.OPEN)
-
 const terminalCommands = require("./terminalCommands");
 const sendToAll = require("./sendToAll");
 const makeName = require("./makeName");
 const join = require("./onJoin");
-const sendClients = require("./sendClients")
+const sendClients = require("./sendClients");
 
 const wss = new WebSocket.Server({ port: 3000 });
 
@@ -17,7 +14,7 @@ const rl = readline.createInterface({
 });
 
 rl.on('line', line => {
-  terminalCommands(line, wss)
+  terminalCommands(line, wss);
 });
 
 let usercount = 0;
