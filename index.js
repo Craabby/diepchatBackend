@@ -6,6 +6,8 @@ const sendToAll = require("./sendToAll");
 const makeName = require("./makeName");
 const join = require("./onJoin");
 const sendClients = require("./sendClients");
+const init = require("./init");
+const config = require("./config.json");
 
 const wss = new WebSocket.Server({ port: 3000 });
 
@@ -81,6 +83,7 @@ wss.on('connection', (ws, req) => {
       case 'message': return sendToAll(ws, msg, wss);
       case 'join': return join(ws, msg, makeName);
       case 'users': return sendClients(ws, wss);
+      case 'init': return init(msg, ws, config.version);
       default: ws.terminate();
     }
   });
