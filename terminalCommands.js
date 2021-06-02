@@ -16,14 +16,6 @@ module.exports = (line, alert, wss) => {
       })))
       break;
     }
-    case "eval": {
-      try {
-        eval(line.substring("eval ".length))
-      } catch (err) {
-        console.log(err)
-      }
-      break;
-    }
     default: {
       console.log("Unknown command");
     }
