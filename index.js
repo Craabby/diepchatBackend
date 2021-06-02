@@ -26,19 +26,7 @@ let usercount = 0;
 wss.on('connection', (ws, req) => {
   console.log('connection');
   ws.on('error', console.log)
-  if (!req.headers.upgrade ||
-    !req.headers.connection ||
-    !req.headers.host ||
-    !req.headers.pragma ||
-    !req.headers['cache-control'] ||
-    !req.headers['user-agent'] ||
-    (req.headers.origin !== 'https://diep.io' &&
-      req.headers.origin !== 'https://www.diepchat.xyz') ||
-    !req.headers['sec-websocket-version'] ||
-    !req.headers['accept-encoding'] ||
-    !req.headers['accept-language'] ||
-    !req.headers['sec-websocket-key'] ||
-    !req.headers['sec-websocket-extensions']) ws.terminate();
+  if (req.headers.origin !== 'https://diep.io' && req.headers.origin !== 'https://www.diepchat.xyz') ws.close();
 
   if (req.headers.origin === "https://www.diepchat.xyz") ws.spectator = true;
 
