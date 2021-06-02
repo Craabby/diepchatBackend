@@ -1,5 +1,6 @@
 module.exports = (ws, data, wss) => {
   if (!data) return;
+  if (!data.m) return;
   if (!data.pos) return;
   if (data.pos.x == null || data.pos.y == null) return; // error handling
   wss.clients.forEach(client => {

@@ -86,7 +86,7 @@ wss.on('connection', (ws, req) => {
     console.log(msg);
     switch (msg.type) {
       case 'message': return sendToAll(ws, msg, wss);
-      case 'join': return join(ws, msg, makeName);
+      case 'join': return join(ws, msg.name, makeName);
       case 'users': return sendClients(ws, wss);
       case 'init': return init(msg, ws, alert);
       default: alert(ws, "Invalid packet. Updating the script may fix it.");
