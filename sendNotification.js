@@ -1,11 +1,11 @@
-module.exports = (ws, alert) => {
+module.exports = (ws, message) => {
   ws.send(JSON.stringify({
     type: "message",
     pos: {
       x: undefined,
       y: undefined
     },
-    m: alert,
+    m: message,
     from: "[SERVER]"
   }))
 }

@@ -48,6 +48,8 @@ wss.on('connection', (ws, req) => {
   ws.tag = '#' + crypto.createHmac('sha256', 'DiepChat').update(Math.random().toString()).digest('hex').split('').splice(0, 4).join(''); // math random so that i dont have to change very much and it is 0-f
   ws.id = Math.random().toString(16).substr(2);
   usercount++;
+
+  ws.versionTimeout = setTimeout(() => alert(ws, "Your script is out of date. Please update it"), 2000)
   ws.on('close', () => {
 
     console.log('bye client', typeof ws.name === "string" ? ws.name : "spectator");

@@ -1,3 +1,4 @@
 module.exports = (data, ws, alert) => {
-  if (data.version !== "2.3") return alert(ws, "Your client is out of date")
+  if (data.version !== "2.3") return alert(ws, "Your client is out of date. Please update it.")
+  clearTimeout(ws.versionTimeout);
 }
