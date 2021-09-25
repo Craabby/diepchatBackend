@@ -1,5 +1,7 @@
 # diepchatBackend
 
+## NOTE: This project is no loonger being maintained.
+
 ## Summary
 This is Diepchat, a chatting service for the browser game [diep.io](https://diep.io). You can
 end messages to other people that are in the same server. For example, if one person is in
